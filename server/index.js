@@ -44,6 +44,11 @@ io.on("connection", (socket) => {
     io.emit("setPlaybackRate", data);
     console.log(data, socket.id);
   });
+  socket.on("currentTimeStamp",(data)=>{
+        socket.to(data.rooom).emit("currentTimeStamp",data);
+        io.emit("currentTimeStamp",data);
+        console.log(data,socket.id);
+    });
 });
 
 server.listen(3002, () => {
