@@ -100,19 +100,20 @@ function MainScreen({ socket, username, room }) {
           margin: "15px",
           color: "white",
           backgroundColor: "green",
+          cursor: "pointer"
         }}
         onClick={() => onSubmit()}
       >
         Submit
       </button>
-      <button
+      {/* <button
         onClick={() => {
           playerRef.seekTo(0);
         }}
       >
         Play
       </button>
-      <button onClick={() => onPause()}>Pause</button>
+      <button onClick={() => onPause()}>Pause</button> */}
       {/* <IconButton>
         {playerRef && playerRef.current.player.isPlaying ? (
           <PauseIcon onClick={() => onPause()} />
