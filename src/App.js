@@ -40,8 +40,10 @@ function App() {
         </div>
       ) : (
         <>
+          <div className="secondScreen">
           <MainScreen socket={socket} username={username} room={room} />
           <Chat socket={socket} username={username} room={room} />
+          </div>
         </>
       )}
     </div>
