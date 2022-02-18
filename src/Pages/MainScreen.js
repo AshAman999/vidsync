@@ -80,30 +80,16 @@ function MainScreen({ socket, username, room }) {
           margin: "20px",
         }}
       />
-      <input
+      <input className="urlInputBox"
         placeholder="Enter a youtube Url"
-        style={{
-          padding: "15px",
-          margin: "30px",
-          height: "30px",
-          width: "500px",
-        }}
+        
         type="text"
         value={text}
         onChange={(e) => {
           setText(e.target.value);
         }}
       />
-      <button
-        style={{
-          padding: "15px",
-          margin: "15px",
-          color: "white",
-          backgroundColor: "green",
-          cursor: "pointer"
-        }}
-        onClick={() => onSubmit()}
-      >
+      <button className="submitButton" onClick={() => onSubmit()}>
         Submit
       </button>
       {/* <button
