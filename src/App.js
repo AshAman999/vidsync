@@ -2,7 +2,8 @@ import "./App.css";
 import io from "socket.io-client";
 import { useState } from "react";
 import MainScreen from "./Pages/MainScreen";
-import Chat from "./Pages/Chat"
+import Chat from "./Pages/Chat";
+import Nav from "./Pages/nav";
 const socket = io.connect("http://localhost:3002");
 
 function App() {
@@ -40,9 +41,16 @@ function App() {
         </div>
       ) : (
         <>
-          <div className="secondScreen">
+          <Nav />
+          <div className="container">
+            <div className="row">
+          <div className="col1">
           <MainScreen socket={socket} username={username} room={room} />
+          </div>
+          <div className="col2">
           <Chat socket={socket} username={username} room={room} />
+          </div>
+            </div>
           </div>
         </>
       )}
