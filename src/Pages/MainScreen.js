@@ -60,6 +60,7 @@ function MainScreen({ socket, username, room }) {
   return (
     <div>
       {/*TODO add video player to support playlist feature */}
+      <div className="videoPlayer">
       <ReactPlayer
         controls={true}
         playing={playing}
@@ -75,11 +76,15 @@ function MainScreen({ socket, username, room }) {
         onDuration={(duration) => console.log(duration)}
         onProgress={(progress) => console.log(progress)}
         onSeek={(seek) => console.log(seek)}
-        style={{
-          padding: "15px",
-          margin: "20px",
-        }}
+        // style={{
+        //   padding: "15px",
+        //   margin: "20px",
+        // }}
+        className='react-player'
+        width='700px'
+        height='400px'
       />
+      </div>
       <input className="urlInputBox"
         placeholder="Enter a youtube Url"
         

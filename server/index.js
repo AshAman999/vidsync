@@ -49,6 +49,12 @@ io.on("connection", (socket) => {
         io.emit("currentTimeStamp",data);
         console.log(data,socket.id);
     });
+
+    socket.on("send_message", (data) => {
+      socket.to(data.room).emit("receive_message", data);
+      // io.emit("videourl", data);
+      console.log(data, socket.id);
+    });
 });
 
 server.listen(3002, () => {
