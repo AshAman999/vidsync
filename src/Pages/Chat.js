@@ -1,10 +1,28 @@
 import React, { Fragment, useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+function getCurrentTime() {
+  return (
+    //get current time in hh:mm format
+    new Date().toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    })
+    // new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
+  );
+}
 
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
-  // const [onlineMembers, setOnlineMembers] = useState(1);
+  const [messageList, setMessageList] = useState([
+    {
+      room: room,
+      author: "admin",
+      message: `Welcome to the chat! ${username}`,
+      time: getCurrentTime(),
+    },
+  ]);
+  const [onlineMembers, setOnlineMembers] = useState(1);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -12,10 +30,7 @@ function Chat({ socket, username, room }) {
         room: room,
         author: username,
         message: currentMessage,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+        time: getCurrentTime(),
       };
       await socket.emit("send_message", messageData);
       setMessageList((list) => [...list, messageData]);
@@ -27,12 +42,15 @@ function Chat({ socket, username, room }) {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
     });
+    socket.on("connectedUsers", (data) => {
+      setOnlineMembers(data);
+    });
   }, [socket]);
 
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>Quick Chat online: {/*onlineMembers*/}</p>
+        <p>Quick Chat online: {onlineMembers}</p>
       </div>
       <div className="chat-body">
         <ScrollToBottom className="message-container">
