@@ -13,7 +13,7 @@ function App() {
 
   const joinRoom = () => {
     if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
+      socket.emit("join_room", { room: room, author: username });
       setShowChat(true);
     }
   };
@@ -44,12 +44,12 @@ function App() {
           <Nav />
           <div className="container">
             <div className="row">
-          <div className="col1">
-          <MainScreen socket={socket} username={username} room={room} />
-          </div>
-          <div className="col2">
-          <Chat socket={socket} username={username} room={room} />
-          </div>
+              <div className="col1">
+                <MainScreen socket={socket} username={username} room={room} />
+              </div>
+              <div className="col2">
+                <Chat socket={socket} username={username} room={room} />
+              </div>
             </div>
           </div>
         </>
