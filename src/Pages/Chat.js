@@ -37,12 +37,13 @@ function Chat({ socket, username, room }) {
       <div className="chat-body">
         <ScrollToBottom className="message-container">
           {messageList.map((messageContent, i) => {
+            var idName = "";
+            if (messageContent.author === username) idName = "you";
+            else if (messageContent.author === "admin") idName = "admin";
+            else idName = "other";
             return (
               <Fragment key={i}>
-                <div
-                  className="message"
-                  id={username === messageContent.author ? "you" : "other"}
-                >
+                <div className="message" id={idName}>
                   <div>
                     <div className="message-content">
                       <p>{messageContent.message}</p>
