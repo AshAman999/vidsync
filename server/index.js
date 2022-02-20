@@ -16,7 +16,6 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   var currentRoom;
-
   socket.on("join_room", (data) => {
     socket.join(data.room);
     currentRoom = {
@@ -41,17 +40,19 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     const messageData = {
-      room: currentRoom.room,
+      room: currentRoom == null ? "" : currentRoom.room,
       author: "admin",
-      message: `${currentRoom.author} has left the room`,
+      message: `${
+        currentRoom == null ? "" : currentRoom.author
+      } has left the room`,
       time:
         new Date(Date.now()).getHours() +
         ":" +
         new Date(Date.now()).getMinutes(),
     };
-    socket.to(currentRoom.room).emit("receive_message", messageData);
+    socket.to(messageData.room).emit("receive_message", messageData);
 
-    console.log("User Disconnected", socket.id, currentRoom.room);
+    console.log("User Disconnected", socket.id);
   });
   socket.on("videourl", (data) => {
     socket.to(data.room).emit("videourl", data);
