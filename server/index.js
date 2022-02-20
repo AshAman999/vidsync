@@ -15,46 +15,62 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+  var currentRoom;
+
   socket.on("join_room", (data) => {
-    socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+    socket.join(data.room);
+    currentRoom = {
+      room: data.room,
+      author: data.author,
+    };
+    console.log(
+      `User with ID: ${socket.id}  ${data.author}joined room: ${data.room}`
+    );
+
+    const messageData = {
+      room: data.room,
+      author: "admin",
+      message: `${data.author} has joined the room`,
+      time:
+        new Date(Date.now()).getHours() +
+        ":" +
+        new Date(Date.now()).getMinutes(),
+    };
+    socket.to(data.room).emit("receive_message", messageData);
   });
+
   socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
+    const messageData = {
+      room: currentRoom.room,
+      author: "admin",
+      message: `${currentRoom.author} has left the room`,
+      time:
+        new Date(Date.now()).getHours() +
+        ":" +
+        new Date(Date.now()).getMinutes(),
+    };
+    socket.to(currentRoom.room).emit("receive_message", messageData);
+
+    console.log("User Disconnected", socket.id, currentRoom.room);
   });
   socket.on("videourl", (data) => {
     socket.to(data.room).emit("videourl", data);
-    io.emit("videourl", data);
-    console.log(data, socket.id);
   });
   socket.on("play", (data) => {
     socket.to(data.room).emit("play", data);
-    io.emit("play", data);
-    console.log(data, socket.id);
   });
-
   socket.on("pause", (data) => {
     socket.to(data.room).emit("pause", data);
-    io.emit("pause", data);
-    console.log(data, socket.id);
   });
   socket.on("setPlaybackRate", (data) => {
     socket.to(data.room).emit("setPlaybackRate", data);
-    io.emit("setPlaybackRate", data);
-    console.log(data, socket.id);
   });
-  socket.on("currentTimeStamp",(data)=>{
-        socket.to(data.rooom).emit("currentTimeStamp",data);
-        io.emit("currentTimeStamp",data);
-        console.log(data,socket.id);
-    });
-
-    socket.on("send_message", (data) => {
-      socket.to(data.room).emit("receive_message", data);
-      // io.emit("videourl", data);
-      console.log(data, socket.id);
-    });
+  socket.on("currentTimeStamp", (data) => {
+    socket.to(data.rooom).emit("currentTimeStamp", data);
+  });
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("receive_message", data);
+  });
 });
 
 server.listen(3002, () => {
