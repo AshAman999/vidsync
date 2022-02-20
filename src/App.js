@@ -34,21 +34,26 @@ function App() {
           {visibility ? (
             <div>
               <h3>Join A Room</h3>
-              <input
-                type="text"
-                placeholder="Nickname..."
-                onChange={(event) => {
-                  setUsername(event.target.value);
-                }}
-              />
-              <input
-                type="text"
-                placeholder="Room ID..."
-                onChange={(event) => {
-                  setRoom(event.target.value);
-                }}
-              />
-              <button onClick={joinRoom}>Join A Room</button>
+              <form>
+                <input
+                  type="text"
+                  required
+                  placeholder="Nickname..."
+                  onChange={(event) => {
+                    setUsername(event.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  required
+                  placeholder="Room ID..."
+                  onChange={(event) => {
+                    setRoom(event.target.value);
+                  }}
+                />
+                <button onClick={joinRoom}>Join A Room</button>
+                
+              </form>
               <button
                 id="createroombutton"
                 onClick={() => {
@@ -61,14 +66,18 @@ function App() {
           ) : (
             <div>
               <h3>Create A Room</h3>
-              <input
-                type="text"
-                placeholder="Nickname..."
-                onChange={(event) => {
-                  setUsername(event.target.value);
-                }}
-              />
-              <button onClick={createRoom}>Create A Room</button>
+              <form>
+                <input
+                  type="text"
+                  required
+                  placeholder="Nickname..."
+                  onChange={(event) => {
+                    setUsername(event.target.value);
+                  }}
+                />
+
+                <button onClick={createRoom}>Create A Room</button>
+              </form>
               <button
                 id="createroombutton"
                 onClick={() => {
