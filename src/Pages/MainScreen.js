@@ -1,5 +1,8 @@
 import ReactPlayer from "react-player";
 import React, { useState, useRef, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 function MainScreen({ socket, username, room }) {
   const playerRef = useRef(null);
@@ -9,12 +12,37 @@ function MainScreen({ socket, username, room }) {
   const [playing, setPlaying] = useState(false);
 
   const onSubmit = async () => {
-    const videoData = {
-      room: room,
-      author: username,
-      url: text,
-    };
-    await socket.emit("videourl", videoData);
+    if (text !== "") {
+      const videoData = {
+        room: room,
+        author: username,
+        url: text,
+      };
+      await socket.emit("videourl", videoData);
+      seturl(text);
+      setText("");
+    } else
+      toast("Empty input box, no url found", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+  };
+  const onError = (e) => {
+    console.log(e);
+    toast("Some error occured, check the url again", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const onPlay = async () => {
@@ -60,24 +88,25 @@ function MainScreen({ socket, username, room }) {
           playbackRate={playbackRate}
           onBuffer={() => onPause()}
           onBufferEnd={() => onPlay()}
-          onError={() => console.log("error")}
+          onError={(e) => onError(e)}
           onEnded={() => console.log("ended")}
           onPause={() => onPause()}
           onPlay={() => onPlay()}
           ref={playerRef}
           // onDuration={(duration) => console.log(duration)}
           // onProgress={(progress) => console.log(progress)}
-          // onSeek={(seek) => console.log(seek)}
-
-          className="react-player"
-          width="700px"
-          height="400px"
+          onSeek={(seek) => console.log(seek)}
+          // className="react-player"
+          // width="700px"
+          // height="400px"
         />
       </div>
+
       <input
         className="urlInputBox"
         placeholder="Enter a youtube Url"
         type="text"
+        required
         value={text}
         onChange={(e) => {
           setText(e.target.value);
