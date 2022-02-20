@@ -159,7 +159,7 @@ body {
 }
 
 #you .message-meta {
-  justify-content: flex-center;
+  justify-content: end;
   margin-right: 5px;
 }
 
@@ -190,7 +190,7 @@ body {
 }
 
 #admin .message-meta {
-  justify-content: flex-end;
+  justify-content: center;
   /* display: none; */
 }
 #admin .message-meta #author {
