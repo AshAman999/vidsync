@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { useState } from "react";
 import MainScreen from "./Pages/MainScreen";
 import Chat from "./Pages/Chat";
-import Nav from "./Pages/nav";
+import CopyToClipboard from "react-copy-to-clipboard";
 const socket = io.connect("http://localhost:3002");
 
 function App() {
@@ -11,18 +11,19 @@ function App() {
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [visibility, setVisibility] = useState(true);
-
+  const [roomName, setRoomName] = useState("");
   const joinRoom = () => {
     if (username !== "" && room !== "") {
-      socket.emit("join_room", { room: room, author: username });
+      socket.emit("join_room", { room: roomName, author: username });
       setShowChat(true);
     }
   };
   const createRoom = () => {
     if (username !== "") {
       //generate random room name string uuid
-      const roomName = Math.random().toString(36).substring(2, 15);
-      socket.emit("join_room", { room: roomName, author: username });
+      var rid = Math.random().toString(36).substring(2, 15)
+      setRoomName(rid);
+      socket.emit("join_room", { room: rid, author: username });
       setShowChat(true);
     }
   };
@@ -32,9 +33,9 @@ function App() {
       {!showChat ? (
         <div className="joinChatContainer">
           {visibility ? (
-            <div>
+            <div className="joinchatc">
               <h3>Join A Room</h3>
-              <form>
+              <form className="form">
                 <input
                   type="text"
                   required
@@ -49,10 +50,12 @@ function App() {
                   placeholder="Room ID..."
                   onChange={(event) => {
                     setRoom(event.target.value);
+                    setRoomName(event.target.value);
                   }}
                 />
-                <button onClick={joinRoom}>Join A Room</button>
-                
+                <button onClick={() => {
+                  joinRoom();
+                }}>Join A Room</button>
               </form>
               <button
                 id="createroombutton"
@@ -64,7 +67,7 @@ function App() {
               </button>
             </div>
           ) : (
-            <div>
+            <div className="joinchatc">
               <h3>Create A Room</h3>
               <form>
                 <input
@@ -91,15 +94,22 @@ function App() {
         </div>
       ) : (
         <>
-          <Nav />
           <div className="container">
             <div className="row">
               <div className="col1">
-                <MainScreen socket={socket} username={username} room={room} />
+                <MainScreen socket={socket} username={username} room={roomName} />
               </div>
               <div className="col2">
-                <Chat socket={socket} username={username} room={room} />
+                <Chat socket={socket} username={username} room={roomName} />
+                <h4>
+                  {roomName}
+                </h4>
+                <CopyToClipboard text={roomName}>
+
+                  <button>Copy to clipboard</button>
+                </CopyToClipboard>
               </div>
+
             </div>
           </div>
         </>

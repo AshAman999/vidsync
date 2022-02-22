@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,51 +18,63 @@
   font-family: "Open Sans", sans-serif;
   display: grid;
   place-items: center;
-}
+} */
 
 body {
   margin: 0%;
   padding: 0%;
   overflow: hidden;
-  background-color: rgba(211, 211, 211, 0.692);
+  background-color: white(211, 211, 211, 0.692);
 }
 
 .joinChatContainer {
-  /* make this in center vertically */
-
+  /* 3d effect on container card */
+  perspective: 1000px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  width: 40%;
   display: flex;
+  margin-top: 15%;
+  margin-left: 25%;
+  margin-right: 25%;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  height: auto;
-  border: #263238;
-  border-radius: 10px;
-  padding: 10px;
-  /* width: 30%; */
-  background-color: #fff;
+  justify-content: center;
+  background-color: white;
+  /* border of widht 2px black color */
 }
 
 .joinChatContainer h3 {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2 rem;
+}
+.joinchatc {
+  text-align: center;
+  height: auto;
 }
 
 .joinChatContainer input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   width: 210px;
-  height: 40px;
-  margin: 7px;
+  height: 60px;
+  margin: 20px;
   border: 2px solid #43a047;
-  border-radius: 5px;
+  border-radius: 60px;
   padding: 5px;
   font-size: 16px;
+  text-align: center;
 }
 
 .joinChatContainer button {
   width: 225px;
-  height: 50px;
+  height: 80px;
   margin: 7px;
   border: none;
-  border-radius: 5px;
+  border-radius: 60px;
   padding: 5px;
   font-size: 16px;
   background: #43a047;
@@ -73,8 +85,16 @@ body {
 .joinChatContainer button:hover {
   background: #2e7d32;
 }
+.form {
+  /* center the form input elements in center */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 #createroombutton {
+  position: relative;
   background: none !important;
   border: none;
   padding: 0 !important;
@@ -82,6 +102,9 @@ body {
   color: #069;
   text-decoration: underline;
   cursor: pointer;
+  margin-top: 10px;
+  padding-top: 0%;
+  height: 50%;
 }
 .chat-window {
   width: 400px;
@@ -155,7 +178,7 @@ body {
 }
 
 #you .message-content {
-  justify-content: flex-center;
+  justify-content: center;
 }
 
 #you .message-meta {
@@ -168,7 +191,7 @@ body {
 }
 
 #other .message-content {
-  justify-content: flex-end;
+  justify-content: center;
   background-color: gray;
 }
 
@@ -178,14 +201,18 @@ body {
 }
 
 #admin {
-  justify-content: space-around;
+  text-align: center;
+  justify-content: center;
+  font-size: 14px;
 }
 
 #admin .message-content {
   justify-content: flex-end;
   background-color: yellowgreen;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   border-radius: 300px;
 }
 
