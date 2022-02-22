@@ -13,7 +13,16 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
-
+function getCurrentTime() {
+  return (
+    //get current time in hh:mm format
+    new Date().toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    })
+  );
+}
 io.on("connection", (socket) => {
   var currentRoom;
   socket.on("join_room", (data) => {
@@ -23,17 +32,14 @@ io.on("connection", (socket) => {
       author: data.author,
     };
     console.log(
-      `User with ID: ${socket.id}  ${data.author}joined room: ${data.room}`
+      `User with ID: ${socket.id}  ${data.author} joined room: ${data.room}`
     );
 
     const messageData = {
       room: data.room,
       author: "admin",
       message: `${data.author} has joined the room`,
-      time:
-        new Date(Date.now()).getHours() +
-        ":" +
-        new Date(Date.now()).getMinutes(),
+      time: getCurrentTime(),
     };
     socket.to(data.room).emit("receive_message", messageData);
   });
@@ -45,10 +51,7 @@ io.on("connection", (socket) => {
       message: `${
         currentRoom == null ? "" : currentRoom.author
       } has left the room`,
-      time:
-        new Date(Date.now()).getHours() +
-        ":" +
-        new Date(Date.now()).getMinutes(),
+      time: getCurrentTime(),
     };
     socket.to(messageData.room).emit("receive_message", messageData);
 
@@ -69,8 +72,15 @@ io.on("connection", (socket) => {
   socket.on("currentTimeStamp", (data) => {
     socket.to(data.rooom).emit("currentTimeStamp", data);
   });
+
   socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data);
+    io.in(data.room).emit("receive_message", data);
+    console.log(data);
+  });
+  socket.on("notify_people", (data) => {
+    io.in(data.room).emit("receive_message", data);
+
+    console.log(data);
   });
 });
 
