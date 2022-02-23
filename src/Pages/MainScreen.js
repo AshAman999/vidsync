@@ -6,7 +6,7 @@ import { Notify } from "../Helpers/Notify";
 function MainScreen({ socket, username, room }) {
   const playerRef = useRef(null);
   const [text, setText] = useState("");
-  const [url, seturl] = useState("https://www.youtube.com/watch?v=UVCP4bKy9Iw");
+  const [url, seturl] = useState("https://youtu.be/YqeW9_5kURI");
   const [playbackRate, setPlaybackRate] = useState(1);
   const [playing, setPlaying] = useState(false);
   const onSubmit = async () => {
@@ -16,21 +16,20 @@ function MainScreen({ socket, username, room }) {
         author: username,
         url: text,
       };
-      await socket.emit("videourl", videoData);
+      socket.emit("videourl", videoData);
       seturl(text);
       await notifyAllInRoom(
         room,
         `${username} changed the video to ${text}`,
         socket
       );
-
       setText("");
     } else {
       Notify("Empty input box, no url found");
     }
   };
   const onError = (e) => {
-    Notify("Some error occured, check the url again");
+    return Notify("Some error occured, check the url again");
   };
 
   const onPlay = async () => {
@@ -40,7 +39,7 @@ function MainScreen({ socket, username, room }) {
       isPlaying: true,
     };
     await socket.emit("play", playData);
-    await notifyAllInRoom(room, `${username} played the video`, socket);
+    // await notifyAllInRoom(room, `${username} played the video`, socket);
   };
   const onPause = async () => {
     const playData = {
@@ -49,7 +48,7 @@ function MainScreen({ socket, username, room }) {
       isPlaying: false,
     };
     await socket.emit("pause", playData);
-    await notifyAllInRoom(room, `${username} paused the video`, socket);
+    // await notifyAllInRoom(room, `${username} paused the video`, socket);
   };
   // eslint-disable-next-line no-unused-vars
   const onSeek = async (e) => {
@@ -87,7 +86,8 @@ function MainScreen({ socket, username, room }) {
       {/*TODO add video player to support playlist feature */}
       <div className="videoPlayer">
         <ReactPlayer
-          controls
+          ref={playerRef}
+          controls={true}
           playing={playing}
           url={url}
           playbackRate={playbackRate}
@@ -97,13 +97,8 @@ function MainScreen({ socket, username, room }) {
           onEnded={() => console.log("ended")}
           onPause={() => onPause()}
           onPlay={() => onPlay()}
-          ref={playerRef}
-          // onDuration={(duration) => console.log(duration)}
-          // onProgress={(progress) => console.log(progress)}
-          onSeek={(seek) => console.log(seek)}
-          // className="react-player"
-          // width="700px"
-          // height="400px"
+          onSeek={(e) => console.log(e)}
+          className="react-player"
         />
       </div>
       <h1>{room}</h1>
@@ -117,7 +112,12 @@ function MainScreen({ socket, username, room }) {
           setText(e.target.value);
         }}
       />
-      <button className="submitButton" onClick={() => onSubmit()}>
+      <button
+        className="submitButton"
+        onClick={() => {
+          onSubmit();
+        }}
+      >
         Submit
       </button>
     </div>
