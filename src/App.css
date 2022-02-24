@@ -21,10 +21,11 @@
 } */
 
 body {
-  margin: 0%;
-  padding: 0%;
-  overflow: hidden;
-  background-color: white(211, 211, 211, 0.692);
+  /* margin: 0%;
+  padding: 0%; */
+  /* overflow: hidden; */
+  background-color: #fce043;
+  background-image: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%);
 }
 
 .joinChatContainer {
@@ -86,7 +87,6 @@ body {
   background: #2e7d32;
 }
 .form {
-  /* center the form input elements in center */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,7 +107,7 @@ body {
   height: 50%;
 }
 .chat-window {
-  width: 400px;
+  width: 25vw;
   height: 800px;
 }
 
@@ -118,22 +118,22 @@ body {
 .chat-window .chat-header {
   height: 45px;
   border-radius: 6px;
-  background: #263238;
+  background-color: #fc5296;
+  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%); 
   position: relative;
-  /* cursor: pointer; */
 }
 .chat-window .chat-header p {
   display: block;
   padding: 0 1em 0 2em;
   color: #fff;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 45px;
 }
 
 .chat-window .chat-body {
-  height: 450px;
+  height: 60vh;
   border: 1px solid #263238;
-  background: #fff;
+  background: #f0f0f0;
   border-radius: 6px;
   position: relative;
 }
@@ -143,7 +143,7 @@ body {
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: white;
+  background-color: #f0f0f0;
 }
 
 .chat-window .chat-body .message-container::-webkit-scrollbar {
@@ -162,7 +162,7 @@ body {
   max-width: 220px;
   background-color: cornflowerblue;
   border-radius: 5px;
-  color: white;
+  color: #f0f0f0;
   display: flex;
   align-items: center;
   margin-right: 5px;
@@ -192,7 +192,7 @@ body {
 
 #other .message-content {
   justify-content: center;
-  background-color: gray;
+  background-color: #f0f0f0;
 }
 
 #other .message-meta {
@@ -249,6 +249,7 @@ body {
   border: 0;
   padding: 0 0.7em;
   font-size: 1em;
+  background-color: #f0f0f0;
   border-right: 1px dotted #607d8b;
   border-radius: 6px;
   outline: none;
@@ -262,15 +263,16 @@ body {
   cursor: pointer;
   flex: 15%;
   height: 100%;
-  background: green;
+  background-color: #fc5296;
+  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%); 
   outline: none;
   font-size: 25px;
   color: white;
 }
 
-/* .chat-window .chat-footer button:hover {
-  color: red;
-} */
+.chat-window .chat-footer button:hover {
+  color: #f0f0f0;
+}
 
 .hide {
   opacity: 0 !important;
@@ -278,58 +280,43 @@ body {
 
 .submitButton {
   margin: 30px;
-  font-size: 18px;
-  /* 
-  width: 250px; */
+  font-size: 2vh;
   padding: 15px;
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0, 0, 0, 0.3);
-  background: green;
+  background-color: #fc5296;
+  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%); 
   cursor: pointer;
-  color: white;
+  color: black;
 }
 
 .urlInputBox {
   padding: 15px;
-  margin: 30px;
+  margin-top: 30px;
   margin-right: 0px;
-  height: 50px;
-  width: 500px;
+  height: 2vh;
+  width: 40vw;
+  background-color: #f0f0f0;
   border-radius: 10px;
   border: 2px solid gray;
   font-size: 20px;
-  /* make inner text in center of the input box */
   text-align: center;
 }
 
 .nav {
   position: absolute;
-  top: 0;
+  top: 13vh;
   left: 0;
-  bottom: 0;
-  /* background: rgba(211, 211, 211, 0.692); */
-  width: 120px;
+  bottom: 13vh;
+  width: 100px;
   padding: 10px 0;
-}
-
-/* .user-img {
-    color: black;
-} 
-
-.whiteboard-img {
-  opacity: 0.5;
-} */
-
-.logo {
-  width: 50px;
-  display: block;
-  margin: auto;
-  cursor: pointer;
+  border-radius: 10px;
+  background-color: #fc90b0;
 }
 
 .nav ul {
-  margin-top: 140px;
+  margin-top: 100px;
 }
 
 .nav ul li {
@@ -337,7 +324,7 @@ body {
 }
 
 .nav ul li img {
-  width: 50px;
+  width: 40px;
   display: block;
   margin: 10px auto;
   padding: 10px;
@@ -349,21 +336,30 @@ body {
 
 .nav ul li img:hover {
   opacity: 1;
-  background: snow;
+  background: #fa6aa4;
 }
 
 .row {
-  margin-left: 125px;
-  margin-top: 15px;
-  margin-right: 15px;
+  margin-left: 5vw;
+  margin-top: 10vh;
+  margin-right: 3vw;
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
 }
 
 .col1 {
   flex-basis: 65%;
+  margin-left: 10vw;
 }
 
 .col2 {
   flex-basis: 33%;
+}
+
+.copy-btn{
+  background-color: transparent;
+  border: transparent;
+  color: white;
+  font-weight: 600;
 }
