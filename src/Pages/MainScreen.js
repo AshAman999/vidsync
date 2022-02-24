@@ -99,6 +99,8 @@ function MainScreen({ socket, username, room }) {
           onPlay={() => onPlay()}
           onSeek={(e) => console.log(e)}
           className="react-player"
+          height={window.innerHeight / 1.8}
+          width={window.innerWidth / 2.15}
         />
       </div>
       <input

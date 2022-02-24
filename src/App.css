@@ -24,6 +24,8 @@ body {
   /* margin: 0%;
   padding: 0%; */
   /* overflow: hidden; */
+  width: 100vw;
+  height: 100vh;
   background-color: #fce043;
   background-image: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%);
 }
@@ -119,7 +121,7 @@ body {
   height: 45px;
   border-radius: 6px;
   background-color: #fc5296;
-  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%); 
+  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%);
   position: relative;
 }
 .chat-window .chat-header p {
@@ -131,7 +133,7 @@ body {
 }
 
 .chat-window .chat-body {
-  height: 60vh;
+  height: 55vh;
   border: 1px solid #263238;
   background: #f0f0f0;
   border-radius: 6px;
@@ -264,7 +266,7 @@ body {
   flex: 15%;
   height: 100%;
   background-color: #fc5296;
-  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%); 
+  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%);
   outline: none;
   font-size: 25px;
   color: white;
@@ -286,7 +288,7 @@ body {
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0, 0, 0, 0.3);
   background-color: #fc5296;
-  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%); 
+  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%);
   cursor: pointer;
   color: black;
 }
@@ -308,7 +310,7 @@ body {
   position: absolute;
   top: 13vh;
   left: 0;
-  bottom: 13vh;
+  bottom: 20vh;
   width: 100px;
   padding: 10px 0;
   border-radius: 10px;
@@ -357,7 +359,7 @@ body {
   flex-basis: 33%;
 }
 
-.copy-btn{
+.copy-btn {
   background-color: transparent;
   border: transparent;
   color: white;
