@@ -101,7 +101,6 @@ function MainScreen({ socket, username, room }) {
           className="react-player"
         />
       </div>
-      <h1>{room}</h1>
       <input
         className="urlInputBox"
         placeholder="Enter a youtube Url"

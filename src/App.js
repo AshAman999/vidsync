@@ -4,6 +4,8 @@ import { useState } from "react";
 import MainScreen from "./Pages/MainScreen";
 import Chat from "./Pages/Chat";
 import CopyToClipboard from "react-copy-to-clipboard";
+import Nav from "./Pages/nav";
+import copyImg from "./images/copy1.jpg"
 const socket = io.connect("http://localhost:3002");
 
 function App() {
@@ -94,24 +96,20 @@ function App() {
         </div>
       ) : (
         <>
+          <CopyToClipboard text={roomName}>
+              <button className="copy-btn">{roomName}<img src={copyImg} height ="16" width="16" className="copy-img"/></button>
+          </CopyToClipboard>
+          <Nav />
           <div className="container">
-            <div className="row">
+              <div className="row">
               <div className="col1">
                 <MainScreen socket={socket} username={username} room={roomName} />
               </div>
-              <div className="col2">
-                <Chat socket={socket} username={username} room={roomName} />
-                <h4>
-                  {roomName}
-                </h4>
-                <CopyToClipboard text={roomName}>
-
-                  <button>Copy to clipboard</button>
-                </CopyToClipboard>
+                <div className="col2">
+                  <Chat socket={socket} username={username} room={roomName} />
               </div>
-
             </div>
-          </div>
+        </div>
         </>
       )}
     </div>
