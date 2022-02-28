@@ -5,7 +5,7 @@ import MainScreen from "./Pages/MainScreen";
 import Chat from "./Pages/Chat";
 import CopyToClipboard from "react-copy-to-clipboard";
 import Nav from "./Pages/nav";
-import copyImg from "./images/copy1.jpg"
+import copyImg from "./images/copy1.jpg";
 const socket = io.connect("http://localhost:3002");
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
   const createRoom = () => {
     if (username !== "") {
       //generate random room name string uuid
-      var rid = Math.random().toString(36).substring(2, 15)
+      var rid = Math.random().toString(36).substring(2, 15);
       setRoomName(rid);
       socket.emit("join_room", { room: rid, author: username });
       setShowChat(true);
@@ -55,9 +55,13 @@ function App() {
                     setRoomName(event.target.value);
                   }}
                 />
-                <button onClick={() => {
-                  joinRoom();
-                }}>Join A Room</button>
+                <button
+                  onClick={() => {
+                    joinRoom();
+                  }}
+                >
+                  Join A Room
+                </button>
               </form>
               <button
                 id="createroombutton"
@@ -97,19 +101,32 @@ function App() {
       ) : (
         <>
           <CopyToClipboard text={roomName}>
-              <button className="copy-btn">{roomName}<img src={copyImg} height ="16" width="16" className="copy-img"/></button>
+            <button className="copy-btn">
+              {roomName}
+              <img
+                src={copyImg}
+                height="16"
+                width="16"
+                className="copy-img"
+                alt="copy icon"
+              />
+            </button>
           </CopyToClipboard>
           <Nav />
           <div className="container">
-              <div className="row">
+            <div className="row">
               <div className="col1">
-                <MainScreen socket={socket} username={username} room={roomName} />
+                <MainScreen
+                  socket={socket}
+                  username={username}
+                  room={roomName}
+                />
               </div>
-                <div className="col2">
-                  <Chat socket={socket} username={username} room={roomName} />
+              <div className="col2">
+                <Chat socket={socket} username={username} room={roomName} />
               </div>
             </div>
-        </div>
+          </div>
         </>
       )}
     </div>
